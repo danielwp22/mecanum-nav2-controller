@@ -1,0 +1,44 @@
+name: ROS 2 Humble
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+    container: ros:humble-ros-base
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ws/src/omni_pursuit_controller
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            python3-colcon-common-extensions \
+            ros-humble-nav2-common \
+            ros-humble-nav2-core \
+            ros-humble-nav2-costmap-2d \
+            ros-humble-nav2-util \
+            ros-humble-ament-cmake-gtest
+      - name: Build
+        working-directory: ws
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build --packages-select omni_pursuit_controller \
+            --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
+      - name: Test plugin discovery and loading
+        working-directory: ws
+        run: |
+          source /opt/ros/humble/setup.bash
+          source install/setup.bash
+          colcon test --packages-select omni_pursuit_controller --return-code-on-test-failure
+          colcon test-result --verbose

@@ -1,0 +1,28 @@
+# Merge into your existing Nav2 parameters; keep your robot's costmap and TF settings.
+controller_server:
+  ros__parameters:
+    controller_frequency: 20.0
+    min_y_velocity_threshold: 0.001
+    progress_checker_plugin: progress_checker
+    goal_checker_plugins: [general_goal_checker]
+    controller_plugins: [FollowPath]
+
+    progress_checker:
+      plugin: nav2_controller::SimpleProgressChecker
+      required_movement_radius: 0.01
+      movement_time_allowance: 10.0
+
+    general_goal_checker:
+      plugin: nav2_controller::SimpleGoalChecker
+      xy_goal_tolerance: 0.1
+      yaw_goal_tolerance: 3.15  # Fixed-heading controller: accept any final yaw.
+      stateful: true
+
+    FollowPath:
+      plugin: nav2_omni_pursuit_controller::OmniPursuitController
+      desired_linear_vel: 0.30  # m/s
+      lookahead_dist: 0.5      # m
+      approach_velocity_scaling_dist: 0.40
+      min_approach_linear_velocity: 0.05
+      transform_tolerance: 0.5 # s
+      max_linear_accel: 1.0    # m/s^2, per translation axis

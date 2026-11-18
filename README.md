@@ -6,7 +6,7 @@ The controller selects a lookahead point, transforms it into the robot's base fr
 
 ![QKRT autonomous navigation in Gazebo](docs/demo.gif)
 
-*QKRT's full navigation stack in Gazebo. Excerpt from `autonav_showcase.mp4`, 0:40–1:10, played at 2× speed.*
+*QKRT's full navigation stack in Gazebo. Excerpt from `autonav_showcase.mp4`, 0:41–1:09, played at 2× speed.*
 
 ## Build
 

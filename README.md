@@ -1,6 +1,6 @@
 # Mecanum Nav2 Controller
 
-A C++ Nav2 controller plugin for mecanum and omnidirectional robots. I adapted it for the Queen's Knights Robotics Team's autonomous sentry, allowing the robot to follow a path using forward and lateral motion while keeping its heading fixed.
+A C++ Nav2 controller plugin for mecanum and omnidirectional robots. I adapted it for the Queen's Knights Robotics Team's autonomous sentry, allowing the robot to follow a path using forward and lateral motion while keeping its heading fixed. This was created because wasn't an existing builtin mecanum nav2 controller that allowed for tight enough path following to get through the narrow corridor shown in the gif below.
 
 The controller selects a lookahead point, transforms it into the robot's base frame, and produces `linear.x` and `linear.y` velocity commands. It slows near the goal and limits acceleration between control cycles.
 
